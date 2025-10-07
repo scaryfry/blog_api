@@ -1,0 +1,29 @@
+{
+  "name": "blog_api",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scaryfry/blog_api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scaryfry/blog_api/issues"
+  },
+  "homepage": "https://github.com/scaryfry/blog_api#readme",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "better-sqlite3": "^12.4.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
