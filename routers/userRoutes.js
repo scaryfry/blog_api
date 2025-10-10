@@ -4,10 +4,9 @@ import bcrypt from "bcrypt";
 
 const router = Router();
 
-let users = User.getUsers();
 
 router.get("/", (req, res) => {
-    res.status(200).json(users);
+  res.status(200).json(User.getUsers());
 });
 
 router.get("/:id", (req, res) => {
@@ -18,8 +17,8 @@ router.get("/:id", (req, res) => {
   res.json(user);
 });
 
-router.post("/login", (req,res)=> {
-  const {name,  email, password } = req.body;
+router.post("/login", (req, res) => {
+  const { name, email, password } = req.body;
   if (!email || !password || !name) {
     return res.status(400).json({ message: "Invalid credentials(1)" });
   }
@@ -31,7 +30,7 @@ router.post("/login", (req,res)=> {
     return res.status(400).json({ message: "Invalid credentials(3)" });
   }
   res.json(user);
-})
+});
 router.post("/register", async (req, res) => {
   try {
     const { email, password, name } = req.body;
@@ -40,7 +39,7 @@ router.post("/register", async (req, res) => {
     }
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
-    const saved = User.saveUser(name, email ,hashedPassword);
+    const saved = User.saveUser(name, email, hashedPassword);
     const user = User.getUserById(saved.lastInsertRowid);
     res.json(user);
   } catch (err) {
@@ -50,21 +49,23 @@ router.post("/register", async (req, res) => {
 
 router.put("/:id", (req, res) => {
   const id = +req.params.id;
-  const user = User.getUserById(id)
+  const user = User.getUserById(id);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
-  const {email , password, name} = req.body;
+  const { email, password, name } = req.body;
   if (!email || !password || !name) {
-    return res.status(400).json({ message: "email or password or name is missing" });
+    return res
+      .status(400)
+      .json({ message: "email or password or name is missing" });
   }
-  const updateUser = User.updateUser(id, name, email, password)
+  const updateUser = User.updateUser(id, name, email, password);
   return res.status(200).json(updateUser);
 });
 router.delete("/:id", (req, res) => {
   const id = +req.params.id;
-  User.deleteUser(id)
-  res.status(200).json({message: "Customer deleted!"})
+  User.deleteUser(id);
+  res.status(200).json({ message: "Customer deleted!" });
 });
 
 router.use((err, req, res, next) => {
